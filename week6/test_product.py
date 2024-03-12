@@ -50,6 +50,6 @@ def test_set_name_02():
 
 def test_show(capsys):
     p = Product("Pen", 3.0, 5)
-    p.show()
-    captured = capsys.readouterr() # capture the output into captured.out
+    p.show() # output is printed to the console
+    captured = capsys.readouterr() # capture the output from the console into captured.out
     assert captured.out == "Name: Pen, Price: 3.0, Quantity: 5\n" # check the output
