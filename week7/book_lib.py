@@ -29,3 +29,6 @@ class BookLib:
         book.title = title
         book.author = author
         book.price = price
+
+    def add_book(self, b):
+        self.__books.append(b)
