@@ -32,3 +32,6 @@ class BookLib:
 
     def add_book(self, b):
         self.__books.append(b)
+    
+    def delete_book(self, i):
+        self.__books.pop(i)
