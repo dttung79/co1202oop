@@ -2,6 +2,7 @@ from sport_item import SportItem
 from sport_store import SportStore
 from tkinter import *
 from tkinter import messagebox as msb
+from tkinter import filedialog
 
 class StoreGUI:
     def __init__(self):
@@ -55,11 +56,43 @@ class StoreGUI:
         btn_delete = Button(self.window, width=5, text='Delete')
         btn_delete.grid(row=5, column=6, sticky=W)
 
-        btn_load = Button(self.window, width=5, text='Load')
+        btn_load = Button(self.window, width=5, text='Load', command=self.btn_load_clicked)
         btn_load.grid(row=6, column=0, sticky=E)
 
-        btn_save = Button(self.window, width=5, text='Save')
+        btn_save = Button(self.window, width=5, text='Save', command=self.btn_save_clicked)
         btn_save.grid(row=6, column=1, sticky=W)
+    
+    def btn_save_clicked(self):
+        # open file dialog to select file
+        file_name = filedialog.askopenfilename()
+        try:
+            # save items to file
+            self.store.save_items(file_name)
+            msb.showinfo('Info', 'Items saved to file')
+        except Exception as e:
+            msb.showerror('Error', str(e))
+
+    def btn_load_clicked(self):
+        # open file dialog to select file
+        file_name = filedialog.askopenfilename()
+        
+        try:
+            # load items from file
+            self.store.load_items(file_name)
+            # fill item names into listbox
+            self.fill_names()
+        
+        except Exception as e:
+            msb.showerror('Error', str(e))
+    
+    def fill_names(self):
+        # get names list from store
+        names = self.store.get_names()
+        # clear listbox
+        self.lst_items.delete(0, END)
+        # insert names to listbox
+        for name in names:
+            self.lst_items.insert(END, name)
 
     
     def run(self):
